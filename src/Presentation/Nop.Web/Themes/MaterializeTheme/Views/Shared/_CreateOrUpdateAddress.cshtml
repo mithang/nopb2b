@@ -1,0 +1,155 @@
+﻿@model AddressModel
+
+<input asp-for="Id" type="hidden" />
+<div class="row">
+    <div class="input-field col s12">
+        <input asp-for="FirstName" />
+        <label asp-for="FirstName" asp-postfix=":" class="active"></label>
+        <nop-required />
+        <span asp-validation-for="FirstName"></span>
+    </div>
+    <div class="input-field col s12">
+        <input asp-for="LastName" />
+        <label asp-for="LastName" asp-postfix=":" class="active"></label>
+        <nop-required />
+        <span asp-validation-for="LastName"></span>
+    </div>
+    <div class="input-field col s12">
+        <input asp-for="Email" />
+        <label asp-for="Email" asp-postfix=":" class="active"></label>
+        <nop-required />
+        <span asp-validation-for="Email"></span>
+    </div>
+    @if (Model.CompanyEnabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="Company" />
+            <label asp-for="Company" asp-postfix=":" class="active"></label>
+            @if (Model.CompanyRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="Company"></span>
+        </div>
+    }
+
+    @if (Model.CountryEnabled)
+    {
+        <div class="input-field col s12 country-select-dropbox">
+            <label asp-for="CountryId" asp-postfix=":" class="active"></label>
+            <select asp-for="CountryId" asp-items="Model.AvailableCountries"
+                    data-trigger="country-select"
+                    data-url="@(Url.RouteUrl("GetStatesByCountryId"))"
+                    data-stateprovince="#@Html.IdFor(model => model.StateProvinceId)"
+                    data-loading="#states-loading-progress"></select>
+            <nop-required />
+            <span asp-validation-for="CountryId"></span>
+        </div>
+    }
+
+    @if (Model.CountryEnabled && Model.StateProvinceEnabled)
+    {
+
+        <div class="input-field col s12 state-select-dropbox">
+            <label asp-for="StateProvinceId" asp-postfix=":" class="active"></label>
+            <select asp-for="StateProvinceId" asp-items="Model.AvailableStates"></select>
+            <span id="states-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span>
+            <span asp-validation-for="StateProvinceId"></span>
+        </div>
+    }
+    @if (Model.CountyEnabled)
+    {
+        <div class="input-field col s12 state-select-dropbox">
+            <label asp-for="County" asp-postfix=":"></label>
+            <input asp-for="County" />
+            @if (Model.CountyRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="County"></span>
+        </div>
+    }
+    @if (Model.CityEnabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="City" />
+            <label asp-for="City" asp-postfix=":" class="active"></label>
+            @if (Model.CityRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="City"></span>
+        </div>
+    }
+    @if (Model.StreetAddressEnabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="Address1" />
+            <label asp-for="Address1" asp-postfix=":" class="active"></label>
+            @if (Model.StreetAddressRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="Address1"></span>
+        </div>
+    }
+    @if (Model.StreetAddress2Enabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="Address2" />
+            <label asp-for="Address2" asp-postfix=":" class="active"></label>
+            @if (Model.StreetAddress2Required)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="Address2"></span>
+        </div>
+    }
+    @if (Model.ZipPostalCodeEnabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="ZipPostalCode" />
+            <label asp-for="ZipPostalCode" asp-postfix=":" class="active"></label>
+            @if (Model.ZipPostalCodeRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="ZipPostalCode"></span>
+        </div>
+    }
+    @if (Model.PhoneEnabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="PhoneNumber" />
+            <label asp-for="PhoneNumber" asp-postfix=":" class="active"></label>
+            @if (Model.PhoneRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="PhoneNumber"></span>
+        </div>
+    }
+    @if (Model.FaxEnabled)
+    {
+        <div class="input-field col s12">
+            <input asp-for="FaxNumber" />
+            <label asp-for="FaxNumber" asp-postfix=":" class="active"></label>
+            @if (Model.FaxRequired)
+            {
+                <nop-required />
+            }
+            <span asp-validation-for="FaxNumber"></span>
+        </div>
+    }
+    @if (Model.CustomAddressAttributes.Count > 0)
+    {
+        @await Html.PartialAsync("_AddressAttributes", Model.CustomAddressAttributes)
+    }
+</div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $('select').material_select();
+        Materialize.updateTextFields();
+    });
+</script>
