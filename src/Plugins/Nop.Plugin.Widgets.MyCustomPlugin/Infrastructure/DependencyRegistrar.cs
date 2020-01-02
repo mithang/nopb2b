@@ -17,7 +17,7 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin.Infrastructure
 
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder, NopConfig config)
         {
-            builder.RegisterType<PluginsInfo>().As<IPluginsInfo>().InstancePerLifetimeScope();
+            //builder.RegisterType<PluginsInfo>().As<IPluginsInfo>().InstancePerLifetimeScope();
 
 
             ////data context

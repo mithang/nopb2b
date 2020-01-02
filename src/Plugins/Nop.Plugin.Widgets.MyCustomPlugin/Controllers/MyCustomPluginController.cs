@@ -24,13 +24,11 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin.Controllers
         private readonly IPictureService _pictureService;
         private readonly ISettingService _settingService;
         private readonly IStoreContext _storeContext;
-        private readonly IPluginsInfo _pluginInfo;
         public MyCustomPluginController(ILocalizationService localizationService,
             INotificationService notificationService,
             IPermissionService permissionService,
             IPictureService pictureService,
             ISettingService settingService,
-            IPluginsInfo pluginInfo,
         IStoreContext storeContext)
         {
             this._localizationService = localizationService;
@@ -39,8 +37,6 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin.Controllers
             this._pictureService = pictureService;
             this._settingService = settingService;
             this._storeContext = storeContext;
-            _pluginInfo = pluginInfo;
-            ViewBag.IsInstaller ="";
         }
 
        
