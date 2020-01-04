@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment",
+  "FriendlyName": "Payment VnPay",
+  "SystemName": "Nop.Plugin.Payment.VnPay",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "Diogenes Polanco",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Payment.VnPay.dll",
+  "Description": "This plugin is my Custom plugin"
+}
