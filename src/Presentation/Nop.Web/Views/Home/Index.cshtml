@@ -14,7 +14,7 @@
 }
 <div class="page home-page">
     <div class="page-body">
-        @*@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageTop })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageTop })
             @await Component.InvokeAsync("TopicBlock", new { systemName = "HomepageText" })
             @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeCategories })
             @await Component.InvokeAsync("HomepageCategories")
@@ -26,7 +26,7 @@
             @await Component.InvokeAsync("HomepageNews")
             @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforePoll })
             @await Component.InvokeAsync("HomepagePolls")
-            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBottom })*@
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBottom })
 
         @await Html.PartialAsync("~/Plugins/Nop.Plugin.MediHub.Slider/Views/_SliderShow.cshtml")
        

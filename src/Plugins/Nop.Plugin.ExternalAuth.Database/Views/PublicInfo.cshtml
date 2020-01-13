@@ -1,0 +1,42 @@
+﻿@*@using Nop.Core.Infrastructure
+    @using Nop.Web.Framework.UI
+    @{
+        Layout = "";
+
+        var storeLocation = EngineContext.Current.Resolve<Nop.Core.IWebHelper>().GetStoreLocation();
+    }
+
+    <div class="form-fields">
+        @using (Html.BeginRouteForm("Plugin.ExternalAuth.Database.Login", new { ReturnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"] }, FormMethod.Post, new { id = "krys_form" }))
+    {
+        <fieldset>
+            <legend>Boost Connect Login</legend>
+
+            <div class="message-error">
+
+            </div>
+            <div class="inputs">
+                <label for="Email">Email:</label>
+                <input autofocus="autofocus" class="valid" id="Login" name="Login" type="text" value="">
+                <span class="field-validation-valid" data-valmsg-for="Login" data-valmsg-replace="true"></span>
+            </div>
+            <div class="inputs">
+                <label for="Password">Password:</label>
+                <input class="password" id="Password" name="Password" type="password">
+                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+            </div>
+            <div class="buttons">
+                <input class="button-1 login-button" type="submit" value="Log in">
+            </div>
+        </fieldset>
+    }
+    </div>*@
+@{
+    Layout = "";
+    //Html.AddCssFileParts("~/Plugins/ExternalAuth.Facebook/Content/facebookstyles.css");
+}
+<div class="facebook-login-block">
+    <div class="buttons">
+        <a asp-controller="databaseauthentication" asp-action="login" asp-route-returnurl="@Context.Request.Query["ReturnUrl"]" class="facebook-btn">Database</a>
+    </div>
+</div>

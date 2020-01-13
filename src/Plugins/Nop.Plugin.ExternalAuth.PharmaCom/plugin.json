@@ -1,0 +1,11 @@
+﻿{
+  "Group": "ExternalAuth methods",
+  "FriendlyName": "PharmaCom authentication",
+  "SystemName": "ExternalAuth.PharmaCom",
+  "Version": "1.58",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "nopCommerce team",
+  "DisplayOrder": 5,
+  "FileName": "Nop.Plugin.ExternalAuth.PharmaCom.dll",
+  "Description": "This plugin enables PharmaCom authentication (login using PharmaCom account)"
+}
