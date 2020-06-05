@@ -184,5 +184,7 @@
         public static string SitemapBefore => "sitemap_before";
         public static string VendorDetailsBottom => "vendordetails_bottom";
         public static string VendorDetailsTop => "vendordetails_top";
+        //MINHIT
+        public static string HomeMyCustomPlugin => "home_custom_plugin";
     }
 }

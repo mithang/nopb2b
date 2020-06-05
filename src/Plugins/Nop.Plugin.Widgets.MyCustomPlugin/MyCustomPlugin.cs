@@ -34,7 +34,7 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin
         }
         public IList<string> GetWidgetZones()
         {
-            return new List<string> { PublicWidgetZones.HomePageTop };
+            return new List<string> { PublicWidgetZones.HomeMyCustomPlugin };
         }
          
         public string GetWidgetViewComponentName(string widgetZone)
