@@ -1,0 +1,26 @@
+1. Cho phep tim kiem co dau khong can dung fulltextsearch, Chi can doan code nay dung like co the search co dau va ko dau
+ALTER TABLE Product ALTER COLUMN Name NVARCHAR(400) COLLATE Vietnamese_CI_AI
+2. Xoa fulltextsearch
+ALTER FULLTEXT INDEX ON Product DROP (Name)
+3. Add fulltextsearch
+ALTER FULLTEXT INDEX ON Product ADD (Name)
+4. Trinh bay cac tong tin của mot bang
+sp_help Product
+
+Cac ham khac
+
+select *
+from Product
+where Product.Name like N'%khang%'
+
+select *
+from Product
+where contains(Product.Name, N'%khang%')
+
+select *
+from Product
+where FREETEXT(Product.Name,N'%kháng%')
+
+
+
+
