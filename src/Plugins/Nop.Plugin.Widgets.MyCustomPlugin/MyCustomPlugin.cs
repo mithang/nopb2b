@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Nop.Core;
 using Nop.Core.Domain.Customers;
+using Nop.Core.Domain.Tasks;
 using Nop.Plugin.Widgets.MyCustomPlugin;
 using Nop.Plugin.Widgets.MyCustomPlugin.Components;
 using Nop.Plugin.Widgets.MyCustomPlugin.Models;
+using Nop.Plugin.Widgets.MyCustomPlugin.Tasks;
 using Nop.Services.Cms;
 using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Events;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
+using Nop.Services.Tasks;
 using Nop.Web.Framework.Infrastructure;
 using Nop.Web.Framework.Menu;
 using System.Collections.Generic;
@@ -22,14 +25,17 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin
         private readonly ISettingService _settingService;
         private readonly IWebHelper _webHelper;
         private readonly ILocalizationService _localizationService;
+        private readonly IScheduleTaskService _scheduleTaskService;
 
         public bool HideInWidgetList => false;
 
-        public MyCustomPlugin(ISettingService settingService, IWebHelper webHelper, ILocalizationService localizationService)
+        public MyCustomPlugin(ISettingService settingService, IWebHelper webHelper, 
+            ILocalizationService localizationService, IScheduleTaskService scheduleTaskService)
         {
             this._webHelper = webHelper;
             this._settingService = settingService;
-            this._localizationService = localizationService; 
+            this._localizationService = localizationService;
+            this._scheduleTaskService = scheduleTaskService;
         }
         public override string GetConfigurationPageUrl()
         {
@@ -44,6 +50,12 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin
         {
             return WidgetsMyCustomPluginViewComponent.ViewComponentName;
         }
+
+        public static string GetTaskName<T>()
+        {
+            return $"{typeof(T).FullName}, {typeof(T).Assembly.GetName().Name}";
+        }
+
         public override void Install()
         {
             var settings = new MyCustomPluginSettings()
@@ -55,6 +67,23 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin
 
             _localizationService.AddOrUpdatePluginLocaleResource("Plugin.Widgets.MyCustomPlugin.UseSandbox", "UseSandbox");
             _localizationService.AddOrUpdatePluginLocaleResource("Plugin.Widgets.MyCustomPlugin.Message", "Message");
+
+            string taskName = GetTaskName<InsertLogScheduleTask>();
+            ScheduleTask task = _scheduleTaskService.GetTaskByType(taskName);
+            if (task == null)
+            {
+                task = new ScheduleTask()
+                {
+                    Enabled = true,
+                    Name = "retailCRM: Export catalog",
+                    //Seconds = 60 * 60 * 4,
+                    Seconds=30,
+                    StopOnError = false,
+                    Type = taskName,
+                };
+                _scheduleTaskService.InsertTask(task);
+            }
+
             base.Install();
         }
 
@@ -62,6 +91,18 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin
         {
             _localizationService.DeletePluginLocaleResource("Plugin.Widgets.MyCustomPlugin.UseSandbox");
             _localizationService.DeletePluginLocaleResource("Plugin.Widgets.MyCustomPlugin.Message");
+            foreach (string typeName in new string[] {
+                            GetTaskName<InsertLogScheduleTask>(),
+                           //GetTaskName<DownloadHistoryTask>(),
+                           //GetTaskName<ExportCatalogTask>(),
+                           //GetTaskName<UploadCustomerTask>(),
+                           //GetTaskName<UploadOrderTask>()
+            })
+            {
+                ScheduleTask task = _scheduleTaskService.GetTaskByType(typeName);
+                if (task != null)
+                    _scheduleTaskService.DeleteTask(task);
+            }
             base.Uninstall();
         }
 
