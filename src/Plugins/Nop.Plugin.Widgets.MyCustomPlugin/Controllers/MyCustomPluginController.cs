@@ -4,6 +4,7 @@ using Nop.Core;
 using Nop.Core.Caching;
 using Nop.Plugin.Widgets.MyCustomPlugin.Models;
 using Nop.Services.Configuration;
+using Nop.Services.Events;
 using Nop.Services.Localization;
 using Nop.Services.Media;
 using Nop.Services.Messages;
@@ -24,11 +25,13 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin.Controllers
         private readonly IPictureService _pictureService;
         private readonly ISettingService _settingService;
         private readonly IStoreContext _storeContext;
+        private readonly IEventPublisher _eventPublisher;
         public MyCustomPluginController(ILocalizationService localizationService,
             INotificationService notificationService,
             IPermissionService permissionService,
             IPictureService pictureService,
             ISettingService settingService,
+            IEventPublisher eventPublisher,
         IStoreContext storeContext)
         {
             this._localizationService = localizationService;
@@ -37,9 +40,8 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin.Controllers
             this._pictureService = pictureService;
             this._settingService = settingService;
             this._storeContext = storeContext;
+            this._eventPublisher = eventPublisher;
         }
-
-       
 
         public IActionResult Configure()
         {
@@ -81,6 +83,10 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin.Controllers
             _settingService.ClearCache();
              
             _notificationService.SuccessNotification(_localizationService.GetResource("Admin.Plugins.Saved"));
+
+            //_eventPublisher.EntityInserted<ConfigurationModel>(model);
+            //_eventPublisher.Publish<ConfigurationModel>(model);
+
             return Configure();
         }
     }

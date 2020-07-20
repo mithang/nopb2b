@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Nop.Core;
+using Nop.Core.Domain.Customers;
 using Nop.Plugin.Widgets.MyCustomPlugin;
 using Nop.Plugin.Widgets.MyCustomPlugin.Components;
+using Nop.Plugin.Widgets.MyCustomPlugin.Models;
 using Nop.Services.Cms;
 using Nop.Services.Common;
 using Nop.Services.Configuration;
+using Nop.Services.Events;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Infrastructure;
@@ -14,7 +17,7 @@ using System.Linq;
 
 namespace Nop.Plugin.Widgets.MyCustomPlugin
 {
-    public class MyCustomPlugin : BasePlugin, IWidgetPlugin, IAdminMenuPlugin
+    public class MyCustomPlugin : BasePlugin, IWidgetPlugin, IAdminMenuPlugin, IConsumer<ConfigurationModel>, IConsumer<CustomerRegisteredEvent>
     {
         private readonly ISettingService _settingService;
         private readonly IWebHelper _webHelper;
@@ -78,6 +81,17 @@ namespace Nop.Plugin.Widgets.MyCustomPlugin
                 pluginNode.ChildNodes.Add(menuItem);
             else
                 rootNode.ChildNodes.Add(menuItem);
+        }
+
+        //Sự kiện khi cấu hình plugin MyCustomPlugin, cùng plugin
+        public void HandleEvent(ConfigurationModel eventMessage)
+        {
+            
+        }
+        //Sự kiện khi đăng ký một user mới, khác plugin
+        public void HandleEvent(CustomerRegisteredEvent eventMessage)
+        {
+           
         }
     }
 }
