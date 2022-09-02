@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Shipping rate computation",
+  "FriendlyName": "MediHub thiết lập giá phí vận chuyển",
+  "SystemName": "Shipping.FixedPriceMediHub",
+  "Version": "0.1",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "medihub team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Shipping.FixedPriceMediHub.dll",
+  "Description": "Medihub set gia"
+}

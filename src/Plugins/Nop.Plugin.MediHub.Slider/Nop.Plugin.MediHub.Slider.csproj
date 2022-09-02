@@ -9,18 +9,12 @@
   <ItemGroup>
     <Compile Remove="Areas\**" />
     <Compile Remove="Domain\**" />
-    <Content Remove="Areas\**" />
-    <Content Remove="Domain\**" />
     <EmbeddedResource Remove="Areas\**" />
     <EmbeddedResource Remove="Domain\**" />
     <None Remove="Areas\**" />
     <None Remove="Domain\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="logo.jpg" />
-    <None Remove="plugin.json" />
-  </ItemGroup>
 
   <PropertyGroup>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -31,7 +25,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="plugin.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -79,4 +73,7 @@
     <!-- Delete unnecessary libraries from plugins path -->
     <MSBuild Projects="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
   </Target>
+   <PropertyGroup>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+  </PropertyGroup>
 </Project>

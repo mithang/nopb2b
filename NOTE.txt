@@ -22,5 +22,27 @@ from Product
 where FREETEXT(Product.Name,N'%kháng%')
 
 
+5. Tao Field Trong DB
+We can add new field to any entity in nopcommerce.
+step 1
+Open Customer.cs class from Nop.Core\Domain
+add this line
+public string YourProperty { get; set; }
+Step 2
+Open CustomerModel.cs class from Nop.Admin\Models
+add above line in this class.
+Step 3
+Open CustomerController.cs from Nop.Admin\Controller
+change in PrepareCustomerModel() and ActionResult Create(). add this property in this method.
+Step 4
+Open Customer table from your NopCommerce database. Note: Manually add this column in table.
+Add column in this table. Provide your newly added property name same as Customer.cs in Nop.Core\Domain
+Change your _CreateOrUpdate.cshtml and add new property in this page. and run your project.
+
+http://lateshtclick.com/blogpost/how-to-add-new-column-in-existing-table-in-nopcommerce
+
+http://lateshtclick.com/blogpost/how-to-add-new-tables-to-nopcommerce
+
+
 
 

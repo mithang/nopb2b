@@ -42,7 +42,7 @@ namespace Nop.Plugin.ExternalAuth.PharmaCom.Controllers
             IExternalAuthenticationService externalAuthenticationService,
             ILocalizationService localizationService,
             INotificationService notificationService,
-            IOptionsMonitorCache<PharmaComOptions> optionsCache,
+            //IOptionsMonitorCache<PharmaComOptions> optionsCache,
             IPermissionService permissionService,
             ISettingService settingService,
             IStoreContext storeContext,
@@ -53,7 +53,7 @@ namespace Nop.Plugin.ExternalAuth.PharmaCom.Controllers
             _externalAuthenticationService = externalAuthenticationService;
             _localizationService = localizationService;
             _notificationService = notificationService;
-            _optionsCache = optionsCache;
+            //_optionsCache = optionsCache;
             _permissionService = permissionService;
             _settingService = settingService;
             _storeContext = storeContext;
